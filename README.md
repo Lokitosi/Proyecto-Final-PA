@@ -18,8 +18,9 @@ De acuerdo con lo planteado en clase, el tema para el desarrollo del proyecto fi
 
 ## Links necesarios para el desarrollo:
 
-Diagrama de clases: https://drive.google.com/file/d/1-JQYPsPsWyoeeheYQGh1dMsjcxH7iE6x/view?usp=sharing
-Diagrama de paquetes: https://drive.google.com/file/d/1wB3KEivjKWifZ18QltnCsqt7bB5kY9bU/view?usp=sharing
+- Diagrama de clases: https://drive.google.com/file/d/1-JQYPsPsWyoeeheYQGh1dMsjcxH7iE6x/view?usp=sharing
+
+- Diagrama de paquetes: https://drive.google.com/file/d/1wB3KEivjKWifZ18QltnCsqt7bB5kY9bU/view?usp=sharing
 
 
 

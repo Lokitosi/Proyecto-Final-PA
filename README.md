@@ -22,5 +22,11 @@ De acuerdo con lo planteado en clase, el tema para el desarrollo del proyecto fi
 
 - Diagrama de paquetes: https://drive.google.com/file/d/1wB3KEivjKWifZ18QltnCsqt7bB5kY9bU/view?usp=sharing
 
+## Info util , dejar links que puedan ser utiles:
+- Clases:
+  - clase 1
+  - clase 2
+  - clase 3
 
+- another monda
 

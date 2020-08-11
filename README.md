@@ -4,17 +4,17 @@
 
 De acuerdo con lo planteado en clase, el tema para el desarrollo del proyecto final es abierto, sin embargo los requisitos mínimos del mismo presentan lo siguiente:
 
--[] Utilizar un modelo que implique el uso de una base de datos, un modelo de persistencia y un proceso lógico de conexión.
+-[ ] Utilizar un modelo que implique el uso de una base de datos, un modelo de persistencia y un proceso lógico de conexión.
 
--[] Utilizar una separación de capas que evidencie el uso de los principios de cohesión de paquetes 
+-[ ] Utilizar una separación de capas que evidencie el uso de los principios de cohesión de paquetes 
 
--[] Realizar el diagrama de clases
+-[ ] Realizar el diagrama de clases
 
--[] Construir el diagrama de paquetes
+-[ ] Construir el diagrama de paquetes
 
--[] Utilizar el esquema de base de datos abierto en la nube
+-[ ] Utilizar el esquema de base de datos abierto en la nube
 
--[] Desplegar la aplicación para presentar y ubicar el código en un repositorio abierto
+-[ ] Desplegar la aplicación para presentar y ubicar el código en un repositorio abierto
 
 ## Links necesarios para el desarrollo:
 

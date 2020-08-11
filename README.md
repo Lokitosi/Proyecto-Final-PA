@@ -29,5 +29,8 @@ De acuerdo con lo planteado en clase, el tema para el desarrollo del proyecto fi
   * clase 2
   * clase 3
 
-- another monda
+- Principios de paquetes:
+ - https://www.studocu.com/latam/document/universidad-ort-uruguay/diseno-de-aplicaciones-2/resumenes/principios-de-paquetes-y-metricas/6303917/view
+ - https://www.google.com.co/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwi5w-mysZPrAhVOp1kKHZu0BN0QFjAFegQIARAB&url=https%3A%2F%2Fwww.dsi.fceia.unr.edu.ar%2Fdownloads%2Finformatica%2Finfo_III%2Fpatrones.ppt&usg=AOvVaw1thp2kVKwtHZD3LNyYYRx
+ -https://www.youtube.com/watch?v=bLEnvIBak60
 

@@ -1,0 +1,11 @@
+Usuario:
+	nick
+	Contraseña
+	Rol
+	n-busquedas
+	Busquedas
+
+Busquedas:
+	titulo
+	categoria
+	

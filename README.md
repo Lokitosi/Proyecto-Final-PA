@@ -33,6 +33,7 @@ De acuerdo con lo planteado en clase, el tema para el desarrollo del proyecto fi
   * https://drive.google.com/file/d/1QUEIxeAhYC6k9pKm3u-6Kf7QQ8liDfX9/view
   * https://drive.google.com/file/d/12UfiVa9qO0PjBCkRMoFrzESjrtfIuueD/view
   * https://drive.google.com/file/d/1coXm64A654kKKkQfk3vbl7b9fsJ5W1Qn/view
+  * https://drive.google.com/file/d/1x26UEYMDIAsfVyQUPTV7vjKNLC7xsXll/view (inicio y sincronizacion de bd con esquema)
 
 - Principios de paquetes:
   - https://www.studocu.com/latam/document/universidad-ort-uruguay/diseno-de-aplicaciones-2/resumenes/principios-de-paquetes-y-metricas/6303917/view

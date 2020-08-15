@@ -1,11 +1,17 @@
 Usuario:
 	nick
 	Contraseña
-	Rol
-	n-busquedas
-	Busquedas
+	email
+	ultimoLibro
 
-Busquedas:
-	titulo
-	categoria
-	
+Libro:
+	id
+	LibTitulo
+	LibPrecio
+	LibEditorial
+	LibGenero
+	LiibStock
+
+Editorial:
+	idEditorial
+	EdiNombre

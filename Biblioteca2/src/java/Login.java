@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author andre
  */
-@WebServlet(urlPatterns = {"/Prueba"})
-public class Prueba extends HttpServlet {
+@WebServlet(urlPatterns = {"/Login"})
+public class Login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +36,12 @@ public class Prueba extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Prueba</title>");            
+            out.println("<title>Servlet Login</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Prueba at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
+            out.println("<p>Bienvenido "+ request.getParameter("nick") + " a la biblioteca </p>");
+            out.println("<p>Su contraseña fue: "+ request.getParameter("password") + "</p>");
             out.println("</body>");
             out.println("</html>");
         }

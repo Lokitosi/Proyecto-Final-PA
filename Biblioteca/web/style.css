@@ -1,0 +1,30 @@
+body{
+  background-image : url(https://s2.best-wallpaper.net/wallpaper/1920x1200/1703/Library-many-books_1920x1200.jpg);
+  font-family: Arial, Helvetica, sans-serif;
+  background-size: cover;
+  font-size: 30px;
+}
+
+#logo{
+  box-sizing: border-box;
+  display:block;
+  margin:auto;
+  width:250px;
+  height:250 px;
+  background-size: cover;
+
+  
+  
+}
+
+#segundojuego{
+  position: relative;
+  right:80x;
+}
+
+#form{
+  padding: 100px;
+  margin: 0px 0px 0px;
+  text-align: center;
+  background-color:rgba(95, 62, 13, 0.63);
+}

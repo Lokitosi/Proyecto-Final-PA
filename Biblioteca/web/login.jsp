@@ -1,6 +1,6 @@
 <%-- 
     Document   : login
-    Created on : 18-ago-2020, 7:27:17
+    Created on : 18-ago-2020, 15:03:03
     Author     : andre
 --%>
 
@@ -9,12 +9,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page </title>
+        <title>JSP Page</title>
     </head>
     <body>
+        En este momento se llama a el jsp y funciona
         <%
             String nick = request.getParameter("nick");
             String contraseña = request.getParameter("password");
-        %>;
+        %>
     </body>
 </html>

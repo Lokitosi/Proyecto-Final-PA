@@ -47,14 +47,10 @@ public class BaseDeDatos {
 			switch (opcion) {
 			case 1://imprime los usuarios de la base de datos
 				System.out.println("\n Usuarios en la base");
-				for (int i = 1; i <= ids; i++) {
-					Persona p1 = p.buscarID(i);
-					System.out.println(p1.getDatos());
-
-				}
+				System.out.println(usr.findUsuarioEntities().toString());
 				break;
 
-			case 2://actualiza los datos de algun usuario
+			/*case 2://actualiza los datos de algun usuario
 				int id = Integer.parseInt(JOptionPane.showInputDialog("ingrese el id"));
 				Persona p1 = p.buscarID(id);
 				p1.setApellido(JOptionPane.showInputDialog("ingrese el Apellido"));
@@ -82,10 +78,9 @@ public class BaseDeDatos {
 				ids = jpa.getPersonaCount();
 					break;
 
-
+                        */
 			case 5://Cierra el programa :)
    			closeEntityManager();
-				p.cerrarBd();
 				salir = true;
 				break;
 

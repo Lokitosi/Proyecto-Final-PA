@@ -25,6 +25,7 @@ De acuerdo con lo planteado en clase, el tema para el desarrollo del proyecto fi
 ## Info util , dejar links que puedan ser utiles:
 
 - Clases (de la mas reciente a la mas antigua):
+  * https://drive.google.com/file/d/18iGZbk6rEPtvd0He2XwqCPqHa5GGOJxh/view
   * https://drive.google.com/file/d/1MXhvJHvBq2-iMcrhXjzlAwJYEmeFSUfQ/view
   * https://drive.google.com/file/d/1_t5LnQ67_RSFTpn1sCXyCZrHDvQKcIHb/view
   * https://drive.google.com/file/d/1NNC-GUiHeRdfnzvDQHpckB7KSVVVPVPE/view (inicio web aplication)

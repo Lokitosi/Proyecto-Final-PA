@@ -33,8 +33,10 @@ public class BaseDeDatos {
 
 	public static void main(String[] args) {
 		 initEntityManager();
-	     UsuarioJpaController jpa = new UsuarioJpaController(emf);
-	     ids = jpa.getUsuarioCount();
+	     UsuarioJpaController usr = new UsuarioJpaController(emf);
+             LibroJpaController lbr = new LibroJpaController(emf);
+             EditorialJpaController edi = new EditorialJpaController(emf);
+	     ids = usr.getUsuarioCount();
 		System.out.println("Bienvenido a la BD:\n");
 
 		

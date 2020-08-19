@@ -1,10 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controlador;
 
+/* Edison Andres Gamba Robayo - 20191020170
+   Angello Davis Agualimpia Linares - 20191020136 */
 import controlador.exceptions.NonexistentEntityException;
 import controlador.exceptions.PreexistingEntityException;
 import java.io.Serializable;
@@ -17,10 +15,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import persistencia.Usuario;
 
-/**
- *
- * @author andre
- */
+
 public class UsuarioJpaController implements Serializable {
 
     public UsuarioJpaController(EntityManagerFactory emf) {

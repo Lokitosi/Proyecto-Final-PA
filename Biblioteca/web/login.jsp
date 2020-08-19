@@ -17,5 +17,6 @@
             String nick = request.getParameter("nick");
             String contraseña = request.getParameter("password");
         %>
+        <h1>Bienvenido a la Biblioteca <%=nick%></h1>
     </body>
 </html>

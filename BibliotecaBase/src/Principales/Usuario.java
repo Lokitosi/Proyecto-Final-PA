@@ -1,5 +1,7 @@
 package Principales;
 
+/* Edison Andres Gamba Robayo - 20191020170
+   Angello Davis Agualimpia Linares - 20191020136 */
 
 public class Usuario {
     String nombre,password,email,ultimoLibro;
@@ -43,5 +45,9 @@ public class Usuario {
         this.ultimoLibro = ultimoLibro;
     }
     
-    
+    @Override
+    public String toString(){
+        String usr  = "El usuario es :"+ nombre +" "+ email+" "+ password +" "+ ultimoLibro;
+        return usr;
+    }
 }

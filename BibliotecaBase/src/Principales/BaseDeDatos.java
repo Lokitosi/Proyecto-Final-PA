@@ -1,4 +1,6 @@
 package Principales;
+/* Edison Andres Gamba Robayo - 20191020170
+   Angello Davis Agualimpia Linares - 20191020136 */
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,8 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-/* Nombres : Edison Andres Gamba Robayo - 20191020170
-Angello Davis Agualimpia Linares - 20191020136 */
+
 public class BaseDeDatos {
 
     private static EntityManagerFactory emf;
@@ -32,7 +33,7 @@ public class BaseDeDatos {
     }
 
 	public static void main(String[] args) {
-		 initEntityManager();
+            initEntityManager();
 	     UsuarioJpaController usr = new UsuarioJpaController(emf);
              LibroJpaController lbr = new LibroJpaController(emf);
              EditorialJpaController edi = new EditorialJpaController(emf);

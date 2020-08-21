@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-import Principales.BaseDeDatos;
+import Principales.BaseDeDatos.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/login"})
 public class login extends HttpServlet {
-    
+        Principales.BaseDeDatos a = new Principales.BaseDeDatos();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,12 +37,12 @@ public class login extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet login</title>");            
+            out.println("<title>Login </title>");            
             out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
-            out.println("<p>Bienvenido "+ request.getParameter("nick") + " a la biblioteca </p>");
-            out.println("<p>Su contraseña fue: "+ request.getParameter("password") + "</p>");
+            out.println("<body>"); 
+            out.println("<p>Bienvenido "+ request.getParameter("nick") + " a la biblioteca 2+2 </p>");
+            out.println("<p> test vivo:"+ a.verUsuarios() +"</p>");
+            out.println("<p> wanna cry </p>");
             out.println("</body>");
             out.println("</html>");
         }

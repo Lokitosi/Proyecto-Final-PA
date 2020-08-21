@@ -5,6 +5,7 @@
 --%>
 
 <%@page import="Principales.BaseDeDatos"%>
+<%@page import="Principales.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,13 +17,13 @@
         En este momento se llama a el jsp y funciona
         <%
             BaseDeDatos a = new BaseDeDatos();
-            String lista = a.verUsuarios();
+            //String lista = a.verUsuarios();
             
             String nick = request.getParameter("nick");
-            String contraseña = request.getParameter("password");
+            String password = request.getParameter("password");
             
         %>
         <h1>Bienvenido a la Biblioteca <%=nick%></h1>
-        <p><%=lista%></p>
+        
     </body>
 </html>

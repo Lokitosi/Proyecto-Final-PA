@@ -86,6 +86,7 @@ public class BaseDeDatos {
     
     // Ver
     public String verUsuarios(){
+        
         String lista=(usr.findUsuarioEntities().toString());
         return lista;
     }
@@ -100,4 +101,8 @@ public class BaseDeDatos {
         return lista;
     }
     
+    public String areAlive(){
+        String ja ="Estoy vivo :)";
+        return ja;
+    }
 }

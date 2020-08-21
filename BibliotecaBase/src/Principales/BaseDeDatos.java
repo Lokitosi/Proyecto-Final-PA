@@ -1,18 +1,17 @@
 package Principales;
+
 /* Edison Andres Gamba Robayo - 20191020170
    Angello Davis Agualimpia Linares - 20191020136 */
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
+
 import controlador.UsuarioJpaController;
 import controlador.EditorialJpaController;
 import controlador.LibroJpaController;
+import controlador.exceptions.IllegalOrphanException;
 import controlador.exceptions.NonexistentEntityException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
 
 public class BaseDeDatos {
 
@@ -20,7 +19,17 @@ public class BaseDeDatos {
     private static EntityManager em;
     private static final String PERSISTENCE_UNIT_NAME = "BibliotecaBasePU";
     static Boolean salir = false;
-	static int ids = 0;
+    private static UsuarioJpaController usr;
+    private static EditorialJpaController edi;
+    private static LibroJpaController lbr;
+    
+    public BaseDeDatos(){
+        initEntityManager();
+        //Controladores Tabla
+        usr = new UsuarioJpaController(emf);
+        lbr = new LibroJpaController(emf);
+        edi = new EditorialJpaController(emf);
+    }
 
     private static void initEntityManager() {
         emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
@@ -32,61 +41,63 @@ public class BaseDeDatos {
         emf.close();
     }
 
-	public static void main(String[] args) {
-            initEntityManager();
-	     UsuarioJpaController usr = new UsuarioJpaController(emf);
-             LibroJpaController lbr = new LibroJpaController(emf);
-             EditorialJpaController edi = new EditorialJpaController(emf);
-	     ids = usr.getUsuarioCount();
-		System.out.println("Bienvenido a la BD:\n");
+    // Añadir:
+    public void añadirUsuario(String n, String email, String pass) throws Exception {
+        persistencia.Usuario p = new persistencia.Usuario(n, pass, email);
+        usr.create(p);
+    }
 
-		
-		while (salir != true) {
-			String menu = "1. ver BD \n 2.Acutalizar Datos \n 3.Agregar usuario \n 4.Eliminar usuario \n 5:salir";
-			int opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
+    public void añadirEditorial(Integer id, String nombre) throws Exception {
+        persistencia.Editorial p = new persistencia.Editorial();
+        p.setEdiNombre(nombre);
+        p.setIdEditorial(id);
+        edi.create(p);
+    }
 
-			switch (opcion) {
-			case 1://imprime los usuarios de la base de datos
-				System.out.println("\n Usuarios en la base");
-				System.out.println(usr.findUsuarioEntities().toString());
-				break;
+    public void añadirLibro(Integer id, String libTitulo, String libGenero, short libStock) throws Exception {
+        persistencia.Libro p = new persistencia.Libro(id, libTitulo, libGenero, libStock);
+        lbr.create(p);
+    }
 
-			/*case 2://actualiza los datos de algun usuario
-				int id = Integer.parseInt(JOptionPane.showInputDialog("ingrese el id"));
-				Persona p1 = p.buscarID(id);
-				p1.setApellido(JOptionPane.showInputDialog("ingrese el Apellido"));
-				p1.setEdad(Integer.parseInt(JOptionPane.showInputDialog("ingrese la edad")));
-				p1.setNombre(JOptionPane.showInputDialog("ingrese el Nombre"));
-				p.salvar();
-				break;
-
-			case 3:// agrega un usuario a la bd
-				String apellido = (JOptionPane.showInputDialog("ingrese el Apellido"));
-				int edad = (Integer.parseInt(JOptionPane.showInputDialog("ingrese la edad")));
-				String nombre = (JOptionPane.showInputDialog("ingrese el Nombre"));
-				p.agregar(ids + 1, nombre, apellido, edad);
-				ids += 1;
-				break;
-				
-			case 4://Elimina una persona 
-				int ud = (Integer.parseInt(JOptionPane.showInputDialog("ingrese el id a eliminar")));
-				try {
-					jpa.destroy(ud);
-				} catch (NonexistentEntityException e) {
-					System.out.println("el usuario no se encuentra en la base de datos");
-					e.printStackTrace();
-				}
-				ids = jpa.getPersonaCount();
-					break;
-
-                        */
-			case 5://Cierra el programa :)
-   			closeEntityManager();
-				salir = true;
-				break;
-
-			}
-		}
+    //Eliminar
+    public void elimUsuario(String us) {
+        try {
+            usr.destroy(us);
+        } catch (NonexistentEntityException e) {
+            System.out.println("el usuario no se encuentra en la base de datos");
         }
+    }
+    
+    public void elimLibro(int id) {
+        try {
+            lbr.destroy(id);
+        } catch (NonexistentEntityException e) {
+            System.out.println("el libro no se encuentra en la base de datos");
+        }
+    }
+    
+    public void elimEditorial(Integer id) throws IllegalOrphanException {
+        try {
+            edi.destroy(id);
+        } catch (NonexistentEntityException e) {
+            System.out.println("La editorial no se encuentra en la base de datos");
+        }
+    }
+    
+    // Ver
+    public String verUsuarios(){
+        String lista=(usr.findUsuarioEntities().toString());
+        return lista;
+    }
+    
+    public String verLibros(){
+        String lista=(lbr.findLibroEntities().toString());
+        return lista;
+    }
+    
+    public String verEditorial(){
+        String lista=(edi.findEditorialEntities().toString());
+        return lista;
+    }
+    
 }
-

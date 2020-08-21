@@ -111,7 +111,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "persistencia.Usuario[ nick=" + nick + " ]";
+        return "Usuario: "+ nick +"\n Email: "+email+"\n";
     }
     
 }

@@ -135,7 +135,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "Entidad.Usuario[ nick=" + nick + " ]";
+        return "nick= " + nick+"\n";
     }
     
 }

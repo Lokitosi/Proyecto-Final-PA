@@ -64,6 +64,13 @@ body{
   clear: both;
   margin-top: -30px;
 }
+
+#listaUsr {
+    background-color: mediumaquamarine;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
 /*footer */
 .panel-footer{
   margin-top: 50px;

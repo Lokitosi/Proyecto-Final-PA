@@ -84,7 +84,11 @@ public class verUsuarios extends HttpServlet {
                     + "    </nav><!-- #header-nav -->\n"
                     + "  </header>");
             out.println("<h1>Lista de usuarios:</h1>");
-            out.println("<p>" + lusuarios + "</p>");
+            // contenido de la lista 
+            out.println("<div id='listaUsr'>" + lusuarios + "</div>");
+            //formulario para eliminar
+            
+            // Footer
             out.println("<footer class=\"panel-footer\">\n"
                     + "    <div class=\"container\">\n"
                     + "      <div class=\"row\">\n"

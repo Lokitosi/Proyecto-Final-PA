@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="form">
+            <!-- Si se quiere ir a un jsp, solo se escribe su nombre, si se necesita ir al servlet
+            entonces se usa nombreDelServlet -->
+            <form action="login" method="POST" >
+                Nick:
+                <input type="text" name="nick" required><br>
+                Contraseña:
+                <input type="password" name="password" required><br>
+                <input type="submit" >
+            </form>
+        </div>
+    </body>
+</html>

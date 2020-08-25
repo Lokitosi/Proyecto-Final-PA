@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package persistencia;
+package Entidad;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -33,14 +35,22 @@ public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 25)
     @Column(name = "Nick")
     private String nick;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "Contrase\u00f1a")
     private String contraseña;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 150)
     @Column(name = "email")
     private String email;
+    @Size(max = 45)
     @Column(name = "UltimoLibro")
     private String ultimoLibro;
 
@@ -55,10 +65,6 @@ public class Usuario implements Serializable {
         this.nick = nick;
         this.contraseña = contraseña;
         this.email = email;
-    }
-
-    public Usuario(String usuario, String pass) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getNick() {
@@ -115,7 +121,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "Usuario: "+ nick +"\n Email: "+email+"\n";
+        return "Entidad.Usuario[ nick=" + nick + " ]";
     }
     
 }

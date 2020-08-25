@@ -4,15 +4,16 @@
  * and open the template in the editor.
  */
 
-
 import Controladores.UsuarioJpaController;
+import Controladores.exceptions.RollbackFailureException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,13 +25,13 @@ import persistencia.Usuario;
  *
  * @author andre
  */
-@WebServlet(urlPatterns = {"/login"})
-public class login extends HttpServlet {
+@WebServlet(urlPatterns = {"/register"})
+public class register extends HttpServlet {
     
-     
-     private EntityManager em;
+    
      @Resource
      private javax.transaction.UserTransaction utx;
+     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,33 +41,43 @@ public class login extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");  
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         
-        String usuario = request.getParameter("nick");
-        String pass = request.getParameter("password");
         
-        Usuario u = new Usuario(usuario,pass," ");
+        String n= (request.getParameter("nombre"));
+        String e = (request.getParameter("correo"));
+        String c =(request.getParameter("password"));
+        Usuario u = new Usuario(n,c,e);
+        
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliotecaBasePU");
-        em = emf.createEntityManager();
+        
         
         UsuarioJpaController usr = new UsuarioJpaController(utx , emf);
-        Usuario c = usr.findUsuario(usuario);
-                
+        String res = "El usuario se ha creado con exito"; 
+  
+        
+        try {
+            usr.create(u);
+        } catch (RollbackFailureException ex) {
+            res = "El usuario ya se ha registrado en la base de datos";
+            
+        } catch (Exception ex) {
+            res = "no se pudo conectar con la base de datos";
+            
+        }
+      
+        
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Login </title>");            
+            out.println("<title>Servlet register</title>");            
             out.println("</head>");
-            out.println("<body>"); 
-            if (u.getContraseña().compareTo(c.getContraseña())==0){
-                out.println("<p>Bienvenido a la biblioteca</b>");
-            }else{
-                out.println("<p>Contraseña incorrecta </p>");
-            }
-            out.println("<p> wanna cry </p>");
+            out.println("<body>");
+            out.println(res);
             out.println("</body>");
             out.println("</html>");
         }

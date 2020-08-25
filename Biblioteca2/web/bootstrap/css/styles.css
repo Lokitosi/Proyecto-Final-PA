@@ -11,6 +11,24 @@ body{
   border: 0;
 }
 
+#nav-list{
+  margin-top: 10px;
+}
+
+#nav-list a{
+  color: #fff;
+  text-align: center;
+
+}
+
+#nav-list a:hover {
+  background: #74bbc0;
+}
+
+#nav-list a span{
+  font-size: 1.8em;
+}
+
 #logo-img {
   background: url(../img/biblored.png);
   background-repeat: no-repeat;

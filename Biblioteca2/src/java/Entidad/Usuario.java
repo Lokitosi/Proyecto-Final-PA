@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Usuario.findByNick", query = "SELECT u FROM Usuario u WHERE u.nick = :nick")
     , @NamedQuery(name = "Usuario.findByContrase\u00f1a", query = "SELECT u FROM Usuario u WHERE u.contrase\u00f1a = :contrase\u00f1a")
     , @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email")
-    , @NamedQuery(name = "Usuario.findByUltimoLibro", query = "SELECT u FROM Usuario u WHERE u.ultimoLibro = :ultimoLibro")})
+    , @NamedQuery(name = "Usuario.findByUltimoLibro", query = "SELECT u FROM Usuario u WHERE u.ultimoLibro = :ultimoLibro")
+    , @NamedQuery(name = "Usuario.findByRol", query = "SELECT u FROM Usuario u WHERE u.rol = :rol")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,6 +54,10 @@ public class Usuario implements Serializable {
     @Size(max = 45)
     @Column(name = "UltimoLibro")
     private String ultimoLibro;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Rol")
+    private int rol;
 
     public Usuario() {
     }
@@ -61,10 +66,11 @@ public class Usuario implements Serializable {
         this.nick = nick;
     }
 
-    public Usuario(String nick, String contraseña, String email) {
+    public Usuario(String nick, String contraseña, String email, int rol) {
         this.nick = nick;
         this.contraseña = contraseña;
         this.email = email;
+        this.rol = rol;
     }
 
     public String getNick() {
@@ -97,6 +103,14 @@ public class Usuario implements Serializable {
 
     public void setUltimoLibro(String ultimoLibro) {
         this.ultimoLibro = ultimoLibro;
+    }
+
+    public int getRol() {
+        return rol;
+    }
+
+    public void setRol(int rol) {
+        this.rol = rol;
     }
 
     @Override

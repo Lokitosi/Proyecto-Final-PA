@@ -47,7 +47,7 @@ public class login extends HttpServlet {
         String usuario = request.getParameter("nick");
         String pass = request.getParameter("password");
         
-        Usuario u = new Usuario(usuario,pass," ");
+        Usuario u = new Usuario(usuario,pass," ",0);
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliotecaPU");
         em = emf.createEntityManager();
         

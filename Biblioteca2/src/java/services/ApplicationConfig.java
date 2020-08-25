@@ -31,6 +31,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(services.EditorialFacadeREST.class);
         resources.add(services.LibroFacadeREST.class);
+        resources.add(services.RolFacadeREST.class);
         resources.add(services.UsuarioFacadeREST.class);
     }
     

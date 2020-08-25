@@ -52,7 +52,7 @@ public class register extends HttpServlet {
         String n= (request.getParameter("nombre"));
         String e = (request.getParameter("correo"));
         String c =(request.getParameter("password"));
-        Usuario u = new Usuario(n,c,e);
+        Usuario u = new Usuario(n,c,e,0);
         
         EntityManagerFactory emf2 = Persistence.createEntityManagerFactory("BibliotecaPU");
         em2 = emf2.createEntityManager();

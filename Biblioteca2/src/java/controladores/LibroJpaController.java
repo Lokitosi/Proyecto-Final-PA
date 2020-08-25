@@ -5,19 +5,18 @@
  */
 package controladores;
 
-import java.io.Serializable;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import Entidad.Editorial;
 import Entidad.Libro;
 import controladores.exceptions.NonexistentEntityException;
 import controladores.exceptions.PreexistingEntityException;
 import controladores.exceptions.RollbackFailureException;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.UserTransaction;
 
 /**
@@ -42,16 +41,7 @@ public class LibroJpaController implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            Editorial editorialidEditorial = libro.getEditorialidEditorial();
-            if (editorialidEditorial != null) {
-                editorialidEditorial = em.getReference(editorialidEditorial.getClass(), editorialidEditorial.getIdEditorial());
-                libro.setEditorialidEditorial(editorialidEditorial);
-            }
             em.persist(libro);
-            if (editorialidEditorial != null) {
-                editorialidEditorial.getLibroList().add(libro);
-                editorialidEditorial = em.merge(editorialidEditorial);
-            }
             utx.commit();
         } catch (Exception ex) {
             try {
@@ -75,22 +65,7 @@ public class LibroJpaController implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            Libro persistentLibro = em.find(Libro.class, libro.getId());
-            Editorial editorialidEditorialOld = persistentLibro.getEditorialidEditorial();
-            Editorial editorialidEditorialNew = libro.getEditorialidEditorial();
-            if (editorialidEditorialNew != null) {
-                editorialidEditorialNew = em.getReference(editorialidEditorialNew.getClass(), editorialidEditorialNew.getIdEditorial());
-                libro.setEditorialidEditorial(editorialidEditorialNew);
-            }
             libro = em.merge(libro);
-            if (editorialidEditorialOld != null && !editorialidEditorialOld.equals(editorialidEditorialNew)) {
-                editorialidEditorialOld.getLibroList().remove(libro);
-                editorialidEditorialOld = em.merge(editorialidEditorialOld);
-            }
-            if (editorialidEditorialNew != null && !editorialidEditorialNew.equals(editorialidEditorialOld)) {
-                editorialidEditorialNew.getLibroList().add(libro);
-                editorialidEditorialNew = em.merge(editorialidEditorialNew);
-            }
             utx.commit();
         } catch (Exception ex) {
             try {
@@ -124,11 +99,6 @@ public class LibroJpaController implements Serializable {
                 libro.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The libro with id " + id + " no longer exists.", enfe);
-            }
-            Editorial editorialidEditorial = libro.getEditorialidEditorial();
-            if (editorialidEditorial != null) {
-                editorialidEditorial.getLibroList().remove(libro);
-                editorialidEditorial = em.merge(editorialidEditorial);
             }
             em.remove(libro);
             utx.commit();

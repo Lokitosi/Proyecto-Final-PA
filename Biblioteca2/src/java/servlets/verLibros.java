@@ -91,16 +91,41 @@ public class verLibros extends HttpServlet {
                     + "    </nav><!-- #header-nav -->\n"
                     + "  </header>");
             out.println("<h1>Lista de Libros Y sus datos:</h1>");
+
             // contenido de la lista 
             out.println("<div id='listaUsr'>" + libros + "</div>");
+
             //formulario para eliminar
-            out.println("<h1>Ingrese el id:</h1>");
+            out.println("<h1>Para eliminar ingrese el Id del libro:</h1>");
             out.println("<div id=\"del\">");
             out.println("<form action=\"deleteLib\" method=\"POST\">\n"
                     + "                Nombre o nick:\n"
-                    + "                <input type=\"text\" name=\"id\">"
+                    + "                <input type=\"number\" name=\"id\">"
                     + "                 <input type=\"submit\">");
+            out.println("</form>");
+            out.println("</div>");
+
+            //formulario para Agregar
+            out.println("<h1>Nuevo libro:</h1>");
+            out.println("<div id=\"del\">");
+            out.println("<form action=\"newLib\" method=\"POST\">\n"
+                    + "                 Id:\n"
+                    + "                <input type=\"number\" name=\"id\">"
+                    + "                Nombre:\n"
+                    + "                <input type=\"text\" name=\"titulo\">"
+                    +"                  Genero:\n"
+                    + "                <input type=\"text\" name=\"genero\">"
+                    + "                 Precio:\n"
+                    + "                <input type=\"number\" name=\"precio\">"
+                    + "                  Stock:\n"
+                    + "                  <select name=\"stock\" id=\"stock\">\n"
+                    + "                     <option value=\"si\">Si</option>\n"
+                    + "                      <option value=\"no\">No</option>\n"
+                    + "                    </select>"
+                    + "                 <input type=\"submit\">");
+            out.println("</form>");
             out.println("</div >");
+
             // Footer
             out.println("<footer class=\"panel-footer\">\n"
                     + "    <div class=\"container\">\n"

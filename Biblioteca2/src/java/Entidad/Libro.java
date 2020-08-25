@@ -10,8 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -57,9 +55,6 @@ public class Libro implements Serializable {
     @NotNull
     @Column(name = "LibStock")
     private short libStock;
-    @JoinColumn(name = "Editorial_idEditorial", referencedColumnName = "idEditorial")
-    @ManyToOne(optional = false)
-    private Editorial editorialidEditorial;
 
     public Libro() {
     }
@@ -115,14 +110,6 @@ public class Libro implements Serializable {
         this.libStock = libStock;
     }
 
-    public Editorial getEditorialidEditorial() {
-        return editorialidEditorial;
-    }
-
-    public void setEditorialidEditorial(Editorial editorialidEditorial) {
-        this.editorialidEditorial = editorialidEditorial;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -145,7 +132,7 @@ public class Libro implements Serializable {
 
     @Override
     public String toString() {
-        return "Nombre= "+ libTitulo+"‎‎‎‎‎‎‎‎‎‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎‏‏‎ ‎‏‏‎ ‎‏‏‎‏‏‎ ‎‏‏‎ ‎‏‏‎‏‏‎ ‎‏‏‎ ‎‏‏‎"+ "id= " + id + "<hr>";
+        return "Entidad.Libro[ id=" + id + " ]";
     }
     
 }

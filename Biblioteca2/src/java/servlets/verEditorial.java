@@ -91,16 +91,32 @@ public class verEditorial extends HttpServlet {
                     + "    </nav><!-- #header-nav -->\n"
                     + "  </header>");
             out.println("<h1>Lista de Editoriales Y sus datos:</h1>");
+            
             // contenido de la lista 
             out.println("<div id='listaUsr'>" + editoriales + "</div>");
+            
             //formulario para eliminar
             out.println("<h1>Eliminar Editorial:</h1>");
             out.println("<div id=\"del\">");
             out.println("<form action=\"deleteEdit\" method=\"POST\">\n"
                     + "                Inserte id de la editorial:\n"
-                    + "                <input type=\"text\" name=\"nombre\">"
+                    + "                <input type=\"number\" name=\"nombre\">"
                     + "                 <input type=\"submit\">");
+            out.println("</form>");
             out.println("</div >");
+            
+            //formulario para Agregar
+            out.println("<h1>Nueva Editorial:</h1>");
+            out.println("<div id=\"del\">");
+            out.println("<form action=\"newEdit\" method=\"POST\">\n"
+                    + "                 Id:\n"
+                    + "                <input type=\"number\" name=\"id\">"
+                    + "                Nombre:\n"
+                    + "                <input type=\"text\" name=\"titulo\">"
+                    + "                 <input type=\"submit\">");
+            out.println("</form>");
+            out.println("</div >");
+            
             // Footer
             out.println("<footer class=\"panel-footer\">\n"
                     + "    <div class=\"container\">\n"

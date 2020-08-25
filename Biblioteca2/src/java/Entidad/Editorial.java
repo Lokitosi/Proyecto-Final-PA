@@ -6,20 +6,16 @@
 package Entidad;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -43,8 +39,6 @@ public class Editorial implements Serializable {
     @Size(max = 45)
     @Column(name = "EdiNombre")
     private String ediNombre;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "editorialidEditorial")
-    private List<Libro> libroList;
 
     public Editorial() {
     }
@@ -69,15 +63,6 @@ public class Editorial implements Serializable {
         this.ediNombre = ediNombre;
     }
 
-    @XmlTransient
-    public List<Libro> getLibroList() {
-        return libroList;
-    }
-
-    public void setLibroList(List<Libro> libroList) {
-        this.libroList = libroList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -100,7 +85,7 @@ public class Editorial implements Serializable {
 
     @Override
     public String toString() {
-        return "Nombre= "+ ediNombre+"‎‎‎‎‎‎‎‎‎‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎‏‏‎ ‎‏‏‎ ‎‏‏‎‏‏‎ ‎‏‏‎ ‎‏‏‎‏‏‎ ‎‏‏‎ ‎‏‏‎"+ "id= " + idEditorial + "<hr>";
+        return "Entidad.Editorial[ idEditorial=" + idEditorial + " ]";
     }
     
 }

@@ -6,20 +6,17 @@
 package controladores;
 
 import Entidad.Editorial;
+import controladores.exceptions.NonexistentEntityException;
+import controladores.exceptions.PreexistingEntityException;
+import controladores.exceptions.RollbackFailureException;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import Entidad.Libro;
-import controladores.exceptions.IllegalOrphanException;
-import controladores.exceptions.NonexistentEntityException;
-import controladores.exceptions.PreexistingEntityException;
-import controladores.exceptions.RollbackFailureException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.transaction.UserTransaction;
 
 /**
@@ -40,29 +37,11 @@ public class EditorialJpaController implements Serializable {
     }
 
     public void create(Editorial editorial) throws PreexistingEntityException, RollbackFailureException, Exception {
-        if (editorial.getLibroList() == null) {
-            editorial.setLibroList(new ArrayList<Libro>());
-        }
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            List<Libro> attachedLibroList = new ArrayList<Libro>();
-            for (Libro libroListLibroToAttach : editorial.getLibroList()) {
-                libroListLibroToAttach = em.getReference(libroListLibroToAttach.getClass(), libroListLibroToAttach.getId());
-                attachedLibroList.add(libroListLibroToAttach);
-            }
-            editorial.setLibroList(attachedLibroList);
             em.persist(editorial);
-            for (Libro libroListLibro : editorial.getLibroList()) {
-                Editorial oldEditorialidEditorialOfLibroListLibro = libroListLibro.getEditorialidEditorial();
-                libroListLibro.setEditorialidEditorial(editorial);
-                libroListLibro = em.merge(libroListLibro);
-                if (oldEditorialidEditorialOfLibroListLibro != null) {
-                    oldEditorialidEditorialOfLibroListLibro.getLibroList().remove(libroListLibro);
-                    oldEditorialidEditorialOfLibroListLibro = em.merge(oldEditorialidEditorialOfLibroListLibro);
-                }
-            }
             utx.commit();
         } catch (Exception ex) {
             try {
@@ -81,45 +60,12 @@ public class EditorialJpaController implements Serializable {
         }
     }
 
-    public void edit(Editorial editorial) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public void edit(Editorial editorial) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Editorial persistentEditorial = em.find(Editorial.class, editorial.getIdEditorial());
-            List<Libro> libroListOld = persistentEditorial.getLibroList();
-            List<Libro> libroListNew = editorial.getLibroList();
-            List<String> illegalOrphanMessages = null;
-            for (Libro libroListOldLibro : libroListOld) {
-                if (!libroListNew.contains(libroListOldLibro)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain Libro " + libroListOldLibro + " since its editorialidEditorial field is not nullable.");
-                }
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            List<Libro> attachedLibroListNew = new ArrayList<Libro>();
-            for (Libro libroListNewLibroToAttach : libroListNew) {
-                libroListNewLibroToAttach = em.getReference(libroListNewLibroToAttach.getClass(), libroListNewLibroToAttach.getId());
-                attachedLibroListNew.add(libroListNewLibroToAttach);
-            }
-            libroListNew = attachedLibroListNew;
-            editorial.setLibroList(libroListNew);
             editorial = em.merge(editorial);
-            for (Libro libroListNewLibro : libroListNew) {
-                if (!libroListOld.contains(libroListNewLibro)) {
-                    Editorial oldEditorialidEditorialOfLibroListNewLibro = libroListNewLibro.getEditorialidEditorial();
-                    libroListNewLibro.setEditorialidEditorial(editorial);
-                    libroListNewLibro = em.merge(libroListNewLibro);
-                    if (oldEditorialidEditorialOfLibroListNewLibro != null && !oldEditorialidEditorialOfLibroListNewLibro.equals(editorial)) {
-                        oldEditorialidEditorialOfLibroListNewLibro.getLibroList().remove(libroListNewLibro);
-                        oldEditorialidEditorialOfLibroListNewLibro = em.merge(oldEditorialidEditorialOfLibroListNewLibro);
-                    }
-                }
-            }
             utx.commit();
         } catch (Exception ex) {
             try {
@@ -142,7 +88,7 @@ public class EditorialJpaController implements Serializable {
         }
     }
 
-    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public void destroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
@@ -153,17 +99,6 @@ public class EditorialJpaController implements Serializable {
                 editorial.getIdEditorial();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The editorial with id " + id + " no longer exists.", enfe);
-            }
-            List<String> illegalOrphanMessages = null;
-            List<Libro> libroListOrphanCheck = editorial.getLibroList();
-            for (Libro libroListOrphanCheckLibro : libroListOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Editorial (" + editorial + ") cannot be destroyed since the Libro " + libroListOrphanCheckLibro + " in its libroList field has a non-nullable editorialidEditorial field.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
             }
             em.remove(editorial);
             utx.commit();

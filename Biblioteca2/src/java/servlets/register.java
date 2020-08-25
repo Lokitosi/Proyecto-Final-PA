@@ -1,15 +1,15 @@
+package servlets;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-import Controladores.UsuarioJpaController;
-import Controladores.exceptions.RollbackFailureException;
+import controladores.UsuarioJpaController;
+import controladores.exceptions.RollbackFailureException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,18 +19,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import persistencia.Usuario;
+import Entidad.Usuario;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author andre
  */
-@WebServlet(urlPatterns = {"/register"})
+
+@WebServlet(urlPatterns = {"/registerx"})
 public class register extends HttpServlet {
     
-    
+    private EntityManager em2;
      @Resource
-     private javax.transaction.UserTransaction utx;
+     private javax.transaction.UserTransaction utx2;
      
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,23 +54,19 @@ public class register extends HttpServlet {
         String c =(request.getParameter("password"));
         Usuario u = new Usuario(n,c,e);
         
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliotecaBasePU");
+        EntityManagerFactory emf2 = Persistence.createEntityManagerFactory("BibliotecaPU");
+        em2 = emf2.createEntityManager();
         
-        
-        UsuarioJpaController usr = new UsuarioJpaController(utx , emf);
-        String res = "El usuario se ha creado con exito"; 
+        UsuarioJpaController usr2 = new UsuarioJpaController(utx2 , emf2);
+        String res = "El usuario se ha creado con exito"+u.getNick(); 
   
-        
         try {
-            usr.create(u);
+            usr2.create(u);
         } catch (RollbackFailureException ex) {
-            res = "El usuario ya se ha registrado en la base de datos";
-            
+            Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            res = "no se pudo conectar con la base de datos";
-            
+            Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
         
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -81,7 +80,8 @@ public class register extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         }
-        emf.close();
+        emf2.close();
+        em2.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

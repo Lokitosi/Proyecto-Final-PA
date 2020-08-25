@@ -1,3 +1,5 @@
+package servlets;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,26 +7,25 @@
  */
 
 
-import Controladores.UsuarioJpaController;
+import controladores.UsuarioJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import persistencia.Usuario;
+import Entidad.Usuario;
 
 /**
  *
  * @author andre
  */
-@WebServlet(urlPatterns = {"/login"})
+@WebServlet(urlPatterns = {"/loginx"})
 public class login extends HttpServlet {
     
      
@@ -47,7 +48,7 @@ public class login extends HttpServlet {
         String pass = request.getParameter("password");
         
         Usuario u = new Usuario(usuario,pass," ");
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliotecaBasePU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliotecaPU");
         em = emf.createEntityManager();
         
         UsuarioJpaController usr = new UsuarioJpaController(utx , emf);
@@ -71,6 +72,7 @@ public class login extends HttpServlet {
             out.println("</html>");
         }
         emf.close();
+        em.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

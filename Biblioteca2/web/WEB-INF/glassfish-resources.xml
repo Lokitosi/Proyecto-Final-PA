@@ -10,5 +10,5 @@
         <property name="URL" value="jdbc:mysql://db-prog-avanzada-g81.cq73qyc2lysx.us-east-1.rds.amazonaws.com:3306/Biblioteca_Grupo2?zeroDateTimeBehavior=convertToNull"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="java:app/BibliotecabasePU" object-type="user" pool-name="mysql_Biblioteca_Grupo2_prog_avanzadaPool"/>
+    <jdbc-resource enabled="true" jndi-name="java:app/BiliotecaDB" object-type="user" pool-name="mysql_Biblioteca_Grupo2_prog_avanzadaPool"/>
 </resources>

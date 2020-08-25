@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author andre
  */
-@WebServlet(name = "verEditorial", urlPatterns = {"/verEditorial"})
-public class verEditorial extends HttpServlet {
+@WebServlet(name = "verEditusur", urlPatterns = {"/verEditusr"})
+public class verEditusr extends HttpServlet {
 
     private EntityManager em;
     @Resource
@@ -67,12 +67,12 @@ public class verEditorial extends HttpServlet {
                     + "    <nav id=\"header-nav\" class=\"navbar navbar-default\">\n"
                     + "      <div class=\"container\">\n"
                     + "        <div class=\"navbar-header\">\n"
-                    + "          <a href=\"./bootstrap/adminPage.html\" class=\"pull-left visible-md visible-lg\">\n"
+                    + "          <a href=\"./bootstrap/userPage.html\" class=\"pull-left visible-md visible-lg\">\n"
                     + "            <div id=\"logo-img\"></div>\n"
                     + "          </a>\n"
                     + "\n"
                     + "          <div class=\"navbar-brand\">\n"
-                    + "            <a href=\"./bootstrap/adminPage.html\">\n"
+                    + "            <a href=\"./bootstrap/userPage.html\">\n"
                     + "              <h1>BiblioBogota</h1>\n"
                     + "            </a>\n"
                     + "            <p>\n"
@@ -88,28 +88,6 @@ public class verEditorial extends HttpServlet {
             
             // contenido de la lista 
             out.println("<div id='listaUsr'>" + editoriales + "</div>");
-            
-            //formulario para eliminar
-            out.println("<h1>Eliminar Editorial:</h1>");
-            out.println("<div id=\"del\">");
-            out.println("<form action=\"deleteEdit\" method=\"POST\">\n"
-                    + "                Inserte id de la editorial:\n"
-                    + "                <input type=\"number\" name=\"nombre\">"
-                    + "                 <input type=\"submit\">");
-            out.println("</form>");
-            out.println("</div >");
-            
-            //formulario para Agregar
-            out.println("<h1>Nueva Editorial:</h1>");
-            out.println("<div id=\"del\">");
-            out.println("<form action=\"newEdit\" method=\"POST\">\n"
-                    + "                 Id:\n"
-                    + "                <input type=\"number\" name=\"id\">"
-                    + "                Nombre:\n"
-                    + "                <input type=\"text\" name=\"titulo\">"
-                    + "                 <input type=\"submit\">");
-            out.println("</form>");
-            out.println("</div >");
             
             // Footer
             out.println("<footer class=\"panel-footer\">\n"

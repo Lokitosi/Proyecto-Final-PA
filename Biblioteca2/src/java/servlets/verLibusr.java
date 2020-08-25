@@ -1,6 +1,12 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package servlets;
 
-import controladores.EditorialJpaController;
+import controladores.LibroJpaController;
+import controladores.UsuarioJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
@@ -19,8 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author andre
  */
-@WebServlet(name = "verEditorial", urlPatterns = {"/verEditorial"})
-public class verEditorial extends HttpServlet {
+@WebServlet(name = "verLibusur", urlPatterns = {"/verLibusur"})
+public class verLibusr extends HttpServlet {
 
     private EntityManager em;
     @Resource
@@ -42,12 +48,12 @@ public class verEditorial extends HttpServlet {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliotecaPU");
         em = emf.createEntityManager();
 
-        String editoriales = "";
-        EditorialJpaController edt = new EditorialJpaController(utx, emf);
-        List leditorial = edt.findEditorialEntities();
-        Iterator iter = leditorial.iterator();
+        String libros = "";
+        LibroJpaController lbr = new LibroJpaController(utx, emf);
+        List lLibro = lbr.findLibroEntities();
+        Iterator iter = lLibro.iterator();
         while (iter.hasNext()) {
-            editoriales += (iter.next());
+            libros += (iter.next());
         }
 
         try (PrintWriter out = response.getWriter()) {
@@ -55,7 +61,7 @@ public class verEditorial extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet verUsuarios</title>");
+            out.println("<title>Libros</title>");
             out.println("<link rel=\"stylesheet\" href=\"bootstrap/css/bootstrap.min.css\">\n"
                     + "  <link rel=\"stylesheet\" href=\"bootstrap/css/styles.css\">\n"
                     + "  <link href=\"https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700&display=swap\"\n"
@@ -67,12 +73,12 @@ public class verEditorial extends HttpServlet {
                     + "    <nav id=\"header-nav\" class=\"navbar navbar-default\">\n"
                     + "      <div class=\"container\">\n"
                     + "        <div class=\"navbar-header\">\n"
-                    + "          <a href=\"./bootstrap/adminPage.html\" class=\"pull-left visible-md visible-lg\">\n"
+                    + "          <a href=\"./bootstrap/userPage.html\" class=\"pull-left visible-md visible-lg\">\n"
                     + "            <div id=\"logo-img\"></div>\n"
                     + "          </a>\n"
                     + "\n"
                     + "          <div class=\"navbar-brand\">\n"
-                    + "            <a href=\"./bootstrap/adminPage.html\">\n"
+                    + "            <a href=\"./bootstrap/userPage.html\">\n"
                     + "              <h1>BiblioBogota</h1>\n"
                     + "            </a>\n"
                     + "            <p>\n"
@@ -84,33 +90,10 @@ public class verEditorial extends HttpServlet {
                     + "      </div><!-- .container -->\n"
                     + "    </nav><!-- #header-nav -->\n"
                     + "  </header>");
-            out.println("<h1>Lista de Editoriales Y sus datos:</h1>");
-            
+            out.println("<h1>Lista de Libros Y sus datos:</h1>");
+
             // contenido de la lista 
-            out.println("<div id='listaUsr'>" + editoriales + "</div>");
-            
-            //formulario para eliminar
-            out.println("<h1>Eliminar Editorial:</h1>");
-            out.println("<div id=\"del\">");
-            out.println("<form action=\"deleteEdit\" method=\"POST\">\n"
-                    + "                Inserte id de la editorial:\n"
-                    + "                <input type=\"number\" name=\"nombre\">"
-                    + "                 <input type=\"submit\">");
-            out.println("</form>");
-            out.println("</div >");
-            
-            //formulario para Agregar
-            out.println("<h1>Nueva Editorial:</h1>");
-            out.println("<div id=\"del\">");
-            out.println("<form action=\"newEdit\" method=\"POST\">\n"
-                    + "                 Id:\n"
-                    + "                <input type=\"number\" name=\"id\">"
-                    + "                Nombre:\n"
-                    + "                <input type=\"text\" name=\"titulo\">"
-                    + "                 <input type=\"submit\">");
-            out.println("</form>");
-            out.println("</div >");
-            
+            out.println("<div id='listaUsr'>" + libros + "</div>");
             // Footer
             out.println("<footer class=\"panel-footer\">\n"
                     + "    <div class=\"container\">\n"

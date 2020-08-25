@@ -20,7 +20,7 @@ body{
   right:80x;
 }
 
-#inicio, #form{
+#inicio, #form , #resp{
   color: white;
   padding: 100px;
   margin: 0px 150px 0px;

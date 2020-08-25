@@ -1,0 +1,172 @@
+body{
+  font-size: 16px;
+  color: #fff;
+  background-color: rgb(36, 136, 49);
+  font-family: 'Mukta', sans-serif;
+}
+
+#header-nav{
+  background-color: rgb(128, 173, 55);
+  border-radius: 0;
+  border: 0;
+}
+
+#logo-img {
+  background: url(../img/biblored.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 150px;
+  height: 100px;
+  margin: 10px 15px 10px 0;
+}
+
+.navbar-brand {
+  padding-top: 25px;
+  
+}
+
+.navbar-brand h1{
+  font-family: 'Anton', sans-serif;
+  color: floralwhite;
+  font-size: 1.5em;
+  text-transform: capitalize;
+  font-weight: lighter;
+  text-shadow: 1px 1px 1px darkblue;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: .75;
+}
+.navbar-brand a:hover ,.navbar-brand a:focus {
+  text-decoration: none;
+}
+
+.navbar-brand p{
+  color: floralwhite;
+  text-transform: uppercase;
+  font-size: 1em;
+  margin-top: 15px;
+  
+}
+.navbar-brand span{
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+#nav-list{
+  margin-top: 10px;
+}
+
+#nav-list a{
+  color: #fff;
+  text-align: center;
+
+}
+
+#nav-list a:hover {
+  background: #74bbc0;
+}
+
+#nav-list a span{
+  font-size: 1.8em;
+}
+
+.glyphicon-user{
+  font-size: 38px;
+}
+
+.navbar-header button.navbar-toggle, .navbar-header .icon-bar{
+  border: 1px solid black;
+}
+
+.navbar-header button.navbar-toggle{
+  clear: both;
+  margin-top: -30px;
+}
+/*footer */
+.panel-footer{
+  margin-top: 50px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-color: #222;
+  border-top: 0;
+}
+
+.panel-footer div.row{
+  margin-bottom: 35px;
+}
+
+.container .jumbotron{
+  box-shadow: 0 0 50px rgb(3, 36, 99);
+  border: 2px solid rgb(44, 8, 92);
+}
+
+#lib-tile ,#edi-tile, #usr-tile{
+  height: 250px;
+  width: 100%;
+  margin-bottom: 15px;
+  position: relative;
+  border: 2px solid rgb(44, 8, 92);
+  overflow: hidden;
+
+}
+
+#lib-tile:hover, #edi-tile:hover , #usr-tile:hover {
+  box-shadow: 0 1px 5px 1px rgb(3, 36, 99);
+}
+#lib-tile{
+  background: url(../img/rnd1.jpg) no-repeat;
+  background-position: center;
+}
+
+#edi-tile {
+  background: url(../img/rnd4.png) no-repeat;
+  background-position: center;
+}
+
+#usr-tile {
+  background: url(../img/rnd2.jpg) no-repeat;
+  background-position: center;
+}
+
+#lib-tile span, #edi-tile span , #usr-tile span{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 1.6em;
+  text-transform: uppercase;
+  background-color: #000;
+  color: #fff;
+  opacity: .8;
+ 
+}
+
+/********** Large devices only **********/
+@media (min-width: 1200px) {
+  .container .jumbotron{
+    background: url(../img/jum-1200.jpg) no-repeat;
+    height: 675px;
+  }
+}
+
+/********** Medium devices only **********/
+@media (min-width: 992px) and (max-width: 1199px) {
+  #logo-img {
+    background: url(../img/EasyJobs.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    margin: 5px 5px 5px 0;
+  }
+
+  .container .jumbotron{
+    align-items: center;
+    background: url(../img/jum-1200.jpg) no-repeat;
+    height: 500px;
+  }
+
+}
+
+

@@ -59,15 +59,19 @@ public class login extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
+            out.println("<link href=\"style.css\" rel=\"stylesheet\">");
             out.println("<title>Login </title>");            
             out.println("</head>");
             out.println("<body>"); 
+            out.println("<div id='resp'");
             if (u.getContraseña().compareTo(c.getContraseña())==0){
                 out.println("<p>Bienvenido a la biblioteca</b>");
+                out.println("<a href='./bootstrap/main.html' id='boton'>Pagina principal</a>");
             }else{
                 out.println("<p>Contraseña incorrecta </p>");
+                out.println("<a href='login.html' id='boton'>Intentar de nuevo</a>");
             }
-            out.println("<p> wanna cry </p>");
+            out.println("</div>");
             out.println("</body>");
             out.println("</html>");
         }

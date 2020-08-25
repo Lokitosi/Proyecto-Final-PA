@@ -58,7 +58,7 @@ public class register extends HttpServlet {
         em2 = emf2.createEntityManager();
         
         UsuarioJpaController usr2 = new UsuarioJpaController(utx2 , emf2);
-        String res = "El usuario se ha creado con exito"+u.getNick(); 
+        String res = "El usuario se ha creado con exito -- "+u.getNick(); 
   
         try {
             usr2.create(u);
@@ -73,10 +73,14 @@ public class register extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet register</title>");            
+            out.println("<title>Servlet register</title>");
+            out.println("<link href=\"style.css\" rel=\"stylesheet\">");
             out.println("</head>");
             out.println("<body>");
+            out.println("<div id='resp'>");
             out.println(res);
+            out.println("<a href='login.html' id='boton'>Iniciar sesion</a>");
+            out.println("</div>");
             out.println("</body>");
             out.println("</html>");
         }

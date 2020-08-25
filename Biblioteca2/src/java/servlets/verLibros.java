@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import controladores.LibroJpaController;
 import controladores.UsuarioJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,8 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author andre
  */
-@WebServlet(name = "verUsuarios", urlPatterns = {"/verUsuarios"})
-public class verUsuarios extends HttpServlet {
+@WebServlet(name = "verLibros", urlPatterns = {"/verLibros"})
+public class verLibros extends HttpServlet {
 
     private EntityManager em;
     @Resource
@@ -47,12 +48,12 @@ public class verUsuarios extends HttpServlet {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliotecaPU");
         em = emf.createEntityManager();
 
-        String usuarios = "";
-        UsuarioJpaController usr = new UsuarioJpaController(utx, emf);
-        List lusuarios = usr.findUsuarioEntities();
-        Iterator iter = lusuarios.iterator();
+        String libros = "";
+        LibroJpaController lbr = new LibroJpaController(utx, emf);
+        List lLibro = lbr.findLibroEntities();
+        Iterator iter = lLibro.iterator();
         while (iter.hasNext()) {
-            usuarios += (iter.next());
+            libros += (iter.next());
         }
 
         try (PrintWriter out = response.getWriter()) {
@@ -60,7 +61,7 @@ public class verUsuarios extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet verUsuarios</title>");
+            out.println("<title>Libros</title>");
             out.println("<link rel=\"stylesheet\" href=\"bootstrap/css/bootstrap.min.css\">\n"
                     + "  <link rel=\"stylesheet\" href=\"bootstrap/css/styles.css\">\n"
                     + "  <link href=\"https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700&display=swap\"\n"
@@ -89,15 +90,15 @@ public class verUsuarios extends HttpServlet {
                     + "      </div><!-- .container -->\n"
                     + "    </nav><!-- #header-nav -->\n"
                     + "  </header>");
-            out.println("<h1>Lista de usuarios Y sus datos:</h1>");
+            out.println("<h1>Lista de Libros Y sus datos:</h1>");
             // contenido de la lista 
-            out.println("<div id='listaUsr'>" + usuarios + "</div>");
+            out.println("<div id='listaUsr'>" + libros + "</div>");
             //formulario para eliminar
-            out.println("<h1>Eliminar usuario:</h1>");
+            out.println("<h1>Ingrese el id:</h1>");
             out.println("<div id=\"del\">");
-            out.println("<form action=\"deleteU\" method=\"POST\">\n"
+            out.println("<form action=\"deleteLib\" method=\"POST\">\n"
                     + "                Nombre o nick:\n"
-                    + "                <input type=\"text\" name=\"nombre\">"
+                    + "                <input type=\"text\" name=\"id\">"
                     + "                 <input type=\"submit\">");
             out.println("</div >");
             // Footer

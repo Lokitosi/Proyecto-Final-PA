@@ -67,8 +67,13 @@ body{
 
 #listaUsr {
     background-color: mediumaquamarine;
+    padding-left: 10px;
+    font-size: 25px;
     margin-left: 80px;
     margin-right: 80px;
+}
+#del{
+    color:#000;
 }
 
 /*footer */

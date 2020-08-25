@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import controladores.EditorialJpaController;
 import controladores.UsuarioJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,8 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author andre
  */
-@WebServlet(name = "verUsuarios", urlPatterns = {"/verUsuarios"})
-public class verUsuarios extends HttpServlet {
+@WebServlet(name = "verEditorial", urlPatterns = {"/verEditorial"})
+public class verEditorial extends HttpServlet {
 
     private EntityManager em;
     @Resource
@@ -47,12 +48,12 @@ public class verUsuarios extends HttpServlet {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliotecaPU");
         em = emf.createEntityManager();
 
-        String usuarios = "";
-        UsuarioJpaController usr = new UsuarioJpaController(utx, emf);
-        List lusuarios = usr.findUsuarioEntities();
-        Iterator iter = lusuarios.iterator();
+        String editoriales = "";
+        EditorialJpaController edt = new EditorialJpaController(utx, emf);
+        List leditorial = edt.findEditorialEntities();
+        Iterator iter = leditorial.iterator();
         while (iter.hasNext()) {
-            usuarios += (iter.next());
+            editoriales += (iter.next());
         }
 
         try (PrintWriter out = response.getWriter()) {
@@ -89,14 +90,14 @@ public class verUsuarios extends HttpServlet {
                     + "      </div><!-- .container -->\n"
                     + "    </nav><!-- #header-nav -->\n"
                     + "  </header>");
-            out.println("<h1>Lista de usuarios Y sus datos:</h1>");
+            out.println("<h1>Lista de Editoriales Y sus datos:</h1>");
             // contenido de la lista 
-            out.println("<div id='listaUsr'>" + usuarios + "</div>");
+            out.println("<div id='listaUsr'>" + editoriales + "</div>");
             //formulario para eliminar
-            out.println("<h1>Eliminar usuario:</h1>");
+            out.println("<h1>Eliminar Editorial:</h1>");
             out.println("<div id=\"del\">");
-            out.println("<form action=\"deleteU\" method=\"POST\">\n"
-                    + "                Nombre o nick:\n"
+            out.println("<form action=\"deleteEdit\" method=\"POST\">\n"
+                    + "                Inserte id de la editorial:\n"
                     + "                <input type=\"text\" name=\"nombre\">"
                     + "                 <input type=\"submit\">");
             out.println("</div >");

@@ -100,7 +100,7 @@ public class Editorial implements Serializable {
 
     @Override
     public String toString() {
-        return "Entidad.Editorial[ idEditorial=" + idEditorial + " ]";
+        return "Nombre= "+ ediNombre+"‎‎‎‎‎‎‎‎‎‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎‏‏‎ ‎‏‏‎ ‎‏‏‎‏‏‎ ‎‏‏‎ ‎‏‏‎‏‏‎ ‎‏‏‎ ‎‏‏‎"+ "id= " + idEditorial + "<hr>";
     }
     
 }

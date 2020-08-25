@@ -6,7 +6,7 @@ De acuerdo con lo planteado en clase, el tema para el desarrollo del proyecto fi
 
 - [x] Utilizar un modelo que implique el uso de una base de datos, un modelo de persistencia y un proceso lógico de conexión.
 
-- [ ] Utilizar una separación de capas que evidencie el uso de los principios de cohesión de paquetes 
+- [x] Utilizar una separación de capas que evidencie el uso de los principios de cohesión de paquetes 
 
 - [ ] Realizar el diagrama de clases
 

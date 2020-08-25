@@ -66,7 +66,11 @@ public class login extends HttpServlet {
             out.println("<div id='resp'");
             if (u.getContraseña().compareTo(c.getContraseña())==0){
                 out.println("<p>Bienvenido a la biblioteca</b>");
-                out.println("<a href='./bootstrap/main.html' id='boton'>Pagina principal</a>");
+                if (c.getRol()==1){
+                    out.println("<a href='./bootstrap/adminPage.html' id='boton'>Pagina principal Administrativa</a>");
+                }else{
+                   out.println("<a href='./bootstrap/userPage.html' id='boton'>Pagina principal </a>"); 
+                }  
             }else{
                 out.println("<p>Contraseña incorrecta </p>");
                 out.println("<a href='login.html' id='boton'>Intentar de nuevo</a>");

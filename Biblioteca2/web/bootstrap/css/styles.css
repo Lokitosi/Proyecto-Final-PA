@@ -52,24 +52,6 @@ body{
   vertical-align: middle;
 }
 
-#nav-list{
-  margin-top: 10px;
-}
-
-#nav-list a{
-  color: #fff;
-  text-align: center;
-
-}
-
-#nav-list a:hover {
-  background: #74bbc0;
-}
-
-#nav-list a span{
-  font-size: 1.8em;
-}
-
 .glyphicon-user{
   font-size: 38px;
 }

@@ -1,6 +1,7 @@
 package servlets;
 
 import Entidad.Editorial;
+import Entidad.Usuario;
 import controladores.EditorialJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -24,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 public class verEditorial extends HttpServlet {
     private Editorial e;
     private EntityManager em;
+    private Usuario usr;
     @Resource
     private javax.transaction.UserTransaction utx;
 
@@ -44,6 +47,8 @@ public class verEditorial extends HttpServlet {
         em = emf.createEntityManager();
         EditorialJpaController edt = new EditorialJpaController(utx, emf);
         List leditorial = edt.findEditorialEntities();
+        HttpSession misession= (HttpSession) request.getSession();
+        usr= (Usuario) misession.getAttribute("usuario");
         
         //tabla
         String editorial,tabla ="";
@@ -55,6 +60,13 @@ public class verEditorial extends HttpServlet {
                     + "      <td>" + e.getIdEditorial() + "</td>\n"
                     + "      <td>" + e.getEdiNombre() + "</td>\n"
                     + "    </tr>\n";
+        }
+        //condicionales usuario
+        String pagina;
+        if(usr.getRol()==1){
+            pagina = "./bootstrap/adminPage.html";
+        }else{
+            pagina = "./bootstrap/userPage.html";
         }
         
         //Peticion
@@ -75,12 +87,12 @@ public class verEditorial extends HttpServlet {
                     + "    <nav id=\"header-nav\" class=\"navbar navbar-default\">\n"
                     + "      <div class=\"container\">\n"
                     + "        <div class=\"navbar-header\">\n"
-                    + "          <a href=\"./bootstrap/adminPage.html\" class=\"pull-left visible-md visible-lg\">\n"
+                    + "          <a href=\""+pagina+"\" class=\"pull-left visible-md visible-lg\">\n"
                     + "            <div id=\"logo-img\"></div>\n"
                     + "          </a>\n"
                     + "\n"
                     + "          <div class=\"navbar-brand\">\n"
-                    + "            <a href=\"./bootstrap/adminPage.html\">\n"
+                    + "            <a href=\""+pagina+"\">\n"
                     + "              <h1>BiblioBogota</h1>\n"
                     + "            </a>\n"
                     + "            <p>\n"
@@ -118,6 +130,7 @@ public class verEditorial extends HttpServlet {
             out.println("</tbody></table>");
             out.println("</div>");
             
+            if(usr.getRol()==1){
             //formulario para eliminar
             out.println("<h1>Eliminar Editorial:</h1>");
             out.println("<div id=\"del\">");
@@ -139,7 +152,7 @@ public class verEditorial extends HttpServlet {
                     + "                 <input type=\"submit\">");
             out.println("</form>");
             out.println("</div >");
-            
+            }
             // Footer
             out.println("<footer class=\"panel-footer\">\n"
                     + "    <div class=\"container\">\n"

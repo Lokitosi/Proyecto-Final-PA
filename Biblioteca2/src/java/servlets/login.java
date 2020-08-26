@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Entidad.Usuario;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -27,7 +28,7 @@ import Entidad.Usuario;
  */
 @WebServlet(urlPatterns = {"/loginx"})
 public class login extends HttpServlet {
-    
+    public int rol = 0;
      
      private EntityManager em;
      @Resource
@@ -53,7 +54,25 @@ public class login extends HttpServlet {
         
         UsuarioJpaController usr = new UsuarioJpaController(utx , emf);
         Usuario c = usr.findUsuario(usuario);
-                
+        
+        //verificacion
+        if (u.getContraseña().compareTo(c.getContraseña())==0){
+                if (c.getRol()==1){
+                    u.setRol(1);    
+                    rol = 1;
+                }else{
+                    u.setRol(0);
+                   rol = 0;
+                }  
+            }else{
+            System.out.println("xdxdxd");
+            }
+        
+        //usr ward
+        
+        HttpSession misession= request.getSession(true);
+        misession.setAttribute("usuario",u);  
+
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -68,8 +87,10 @@ public class login extends HttpServlet {
                 out.println("<p>Bienvenido a la biblioteca</b>");
                 if (c.getRol()==1){
                     out.println("<a href='./bootstrap/adminPage.html' id='boton'>Pagina principal Administrativa</a>");
+                    rol = 1;
                 }else{
                    out.println("<a href='./bootstrap/userPage.html' id='boton'>Pagina principal </a>"); 
+                   rol = 0;
                 }  
             }else{
                 out.println("<p>Contraseña incorrecta </p>");
@@ -82,7 +103,6 @@ public class login extends HttpServlet {
         emf.close();
         em.close();
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

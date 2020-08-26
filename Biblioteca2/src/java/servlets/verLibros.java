@@ -6,6 +6,7 @@
 package servlets;
 
 import Entidad.Libro;
+import Entidad.Usuario;
 import controladores.LibroJpaController;
 import controladores.UsuarioJpaController;
 import java.io.IOException;
@@ -21,6 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -31,6 +33,7 @@ public class verLibros extends HttpServlet {
 
     private EntityManager em;
     private Libro c;
+    private Usuario usr;
     @Resource
     private javax.transaction.UserTransaction utx;
 
@@ -52,7 +55,8 @@ public class verLibros extends HttpServlet {
         em = emf.createEntityManager();
         LibroJpaController lbr = new LibroJpaController(utx, emf);
         List lLibro = lbr.findLibroEntities();
-        
+        HttpSession misession= (HttpSession) request.getSession();
+        usr= (Usuario) misession.getAttribute("usuario");
         //tabla
         String libros,tabla = "";
         Iterator iter = lLibro.iterator();
@@ -66,7 +70,14 @@ public class verLibros extends HttpServlet {
                     + "      <td>" + c.getLibGenero() + "</td>\n"
                     + "    </tr>\n";
         }
-        
+
+        //condicionales usuario
+        String pagina;
+        if(usr.getRol()==1){
+            pagina = "./bootstrap/adminPage.html";
+        }else{
+            pagina = "./bootstrap/userPage.html";
+        }
         //Peticion
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -85,12 +96,12 @@ public class verLibros extends HttpServlet {
                     + "    <nav id=\"header-nav\" class=\"navbar navbar-default\">\n"
                     + "      <div class=\"container\">\n"
                     + "        <div class=\"navbar-header\">\n"
-                    + "          <a href=\"./bootstrap/adminPage.html\" class=\"pull-left visible-md visible-lg\">\n"
+                    + "          <a href=\""+pagina+"\" class=\"pull-left visible-md visible-lg\">\n"
                     + "            <div id=\"logo-img\"></div>\n"
                     + "          </a>\n"
                     + "\n"
                     + "          <div class=\"navbar-brand\">\n"
-                    + "            <a href=\"./bootstrap/adminPage.html\">\n"
+                    + "            <a href=\""+pagina+"\">\n"
                     + "              <h1>BiblioBogota</h1>\n"
                     + "            </a>\n"
                     + "            <p>\n"
@@ -130,7 +141,8 @@ public class verLibros extends HttpServlet {
             out.println("</tbody></table>");
             out.println("</div>");
             
-             //formulario para eliminar
+            if(usr.getRol()==1){
+                //formulario para eliminar
             out.println("<h1>Para eliminar ingrese el Id del libro:</h1>");
             out.println("<div id=\"del\">");
             out.println("<form action=\"deleteLib\" method=\"POST\">\n"
@@ -161,6 +173,8 @@ public class verLibros extends HttpServlet {
             out.println("</form>");
             out.println("</div >");
 
+            }
+             
             // Footer
             out.println("<footer class=\"panel-footer\">\n"
                     + "    <div class=\"container\">\n"

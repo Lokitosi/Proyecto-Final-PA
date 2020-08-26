@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import Entidad.Usuario;
 import controladores.UsuarioJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "verUsuarios", urlPatterns = {"/verUsuarios"})
 public class verUsuarios extends HttpServlet {
 
+    private Usuario u;
     private EntityManager em;
     @Resource
     private javax.transaction.UserTransaction utx;
@@ -43,16 +45,23 @@ public class verUsuarios extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        //conexion
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliotecaPU");
         em = emf.createEntityManager();
-
-        String usuarios = "";
         UsuarioJpaController usr = new UsuarioJpaController(utx, emf);
         List lusuarios = usr.findUsuarioEntities();
+
+        //tabla 
+        String usuario, tabla = "";
         Iterator iter = lusuarios.iterator();
         while (iter.hasNext()) {
-            usuarios += (iter.next());
+            usuario = (iter.next().toString());
+            u = usr.findUsuario(usuario);
+            tabla += "    <tr>\n"
+                    + "      <td>" + u.getNick() + "</td>\n"
+                    + "      <td>" + u.getEmail() + "</td>\n"
+                    + "      <td>" + u.getContraseña() + "</td>\n"
+                    + "    </tr>\n";
         }
 
         try (PrintWriter out = response.getWriter()) {
@@ -68,7 +77,7 @@ public class verUsuarios extends HttpServlet {
                     + "  <link href=\"https://fonts.googleapis.com/css2?family=Anton&display=swap\" rel=\"stylesheet\" type=\"text/css\">");
             out.println("</head>");
             out.println("<body>");
-            out.println("  <header>\n"
+            out.println("<header>\n"
                     + "    <nav id=\"header-nav\" class=\"navbar navbar-default\">\n"
                     + "      <div class=\"container\">\n"
                     + "        <div class=\"navbar-header\">\n"
@@ -81,17 +90,41 @@ public class verUsuarios extends HttpServlet {
                     + "              <h1>BiblioBogota</h1>\n"
                     + "            </a>\n"
                     + "            <p>\n"
-                    + "              <span class=\"glyphicon glyphicon-book\"></span>\n"
+                    + "              <span class=\"glyphicon glyphicon-user\"></span>\n"
                     + "              <span>Red de Bibliotecas publicas</span>\n"
                     + "            </p>\n"
                     + "          </div>\n"
                     + "        </div>\n"
+                    + "          <div id=\"collapsable-nav\" class=\"collapsable navbar-collapse\">\n"
+                    + "            <ul id=\"nav-list\" class=\"nav navbar-nav navbar-right\">\n"
+                    + "              <li>\n"
+                    + "                <a href=\"index.html\">\n"
+                    + "                  <span class=\"glyphicon glyphicon-remove\"></span><br class=\"hidden-xs\">\n"
+                    + "                  Salir\n"
+                    + "                </a>\n"
+                    + "              </ul>\n"
+                    + "          </div>\n"
+                    + "        </div>       \n"
                     + "      </div><!-- .container -->\n"
                     + "    </nav><!-- #header-nav -->\n"
                     + "  </header>");
             out.println("<h1>Lista de usuarios Y sus datos:</h1>");
-            // contenido de la lista 
-            out.println("<div id='listaUsr'>" + usuarios + "</div>");
+
+            // Tabla con los Usuarios
+            out.println("<div id='listaUsr'>");
+            out.println("<table class=\"table\">\n"
+                    + "  <thead class=\"thead-light\">\n"
+                    + "    <tr>\n"
+                    + "      <th scope=\"col\">Nick</th>\n"
+                    + "      <th scope=\"col\">Email</th>\n"
+                    + "      <th scope=\"col\">Contraseña</th>\n"
+                    + "    </tr>\n"
+                    + "  </thead>\n"
+                    + "  <tbody>");
+            out.println(tabla);
+            out.println("</tbody></table>");
+            out.println("</div>");
+
             //formulario para eliminar
             out.println("<h1>Eliminar usuario:</h1>");
             out.println("<div id=\"del\">");
@@ -134,7 +167,6 @@ public class verUsuarios extends HttpServlet {
         }
 
         emf.close();
-
         em.close();
     }
 

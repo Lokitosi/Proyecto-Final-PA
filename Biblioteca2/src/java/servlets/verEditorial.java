@@ -1,5 +1,6 @@
 package servlets;
 
+import Entidad.Editorial;
 import controladores.EditorialJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "verEditorial", urlPatterns = {"/verEditorial"})
 public class verEditorial extends HttpServlet {
-
+    private Editorial e;
     private EntityManager em;
     @Resource
     private javax.transaction.UserTransaction utx;
@@ -38,18 +39,25 @@ public class verEditorial extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        //Conexion
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliotecaPU");
         em = emf.createEntityManager();
-
-        String editoriales = "";
         EditorialJpaController edt = new EditorialJpaController(utx, emf);
         List leditorial = edt.findEditorialEntities();
+        
+        //tabla
+        String editorial,tabla ="";
         Iterator iter = leditorial.iterator();
         while (iter.hasNext()) {
-            editoriales += (iter.next());
+            editorial = (iter.next().toString());
+            e = edt.findEditorial(Integer.parseInt(editorial));
+            tabla +=    "    <tr>\n"
+                    + "      <td>" + e.getIdEditorial() + "</td>\n"
+                    + "      <td>" + e.getEdiNombre() + "</td>\n"
+                    + "    </tr>\n";
         }
-
+        
+        //Peticion
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -63,7 +71,7 @@ public class verEditorial extends HttpServlet {
                     + "  <link href=\"https://fonts.googleapis.com/css2?family=Anton&display=swap\" rel=\"stylesheet\" type=\"text/css\">");
             out.println("</head>");
             out.println("<body>");
-            out.println("  <header>\n"
+            out.println("<header>\n"
                     + "    <nav id=\"header-nav\" class=\"navbar navbar-default\">\n"
                     + "      <div class=\"container\">\n"
                     + "        <div class=\"navbar-header\">\n"
@@ -76,18 +84,39 @@ public class verEditorial extends HttpServlet {
                     + "              <h1>BiblioBogota</h1>\n"
                     + "            </a>\n"
                     + "            <p>\n"
-                    + "              <span class=\"glyphicon glyphicon-book\"></span>\n"
+                    + "              <span class=\"glyphicon glyphicon-user\"></span>\n"
                     + "              <span>Red de Bibliotecas publicas</span>\n"
                     + "            </p>\n"
                     + "          </div>\n"
                     + "        </div>\n"
+                    + "          <div id=\"collapsable-nav\" class=\"collapsable navbar-collapse\">\n"
+                    + "            <ul id=\"nav-list\" class=\"nav navbar-nav navbar-right\">\n"
+                    + "              <li>\n"
+                    + "                <a href=\"index.html\">\n"
+                    + "                  <span class=\"glyphicon glyphicon-remove\"></span><br class=\"hidden-xs\">\n"
+                    + "                  Salir\n"
+                    + "                </a>\n"
+                    + "              </ul>\n"
+                    + "          </div>\n"
+                    + "        </div>       \n"
                     + "      </div><!-- .container -->\n"
                     + "    </nav><!-- #header-nav -->\n"
                     + "  </header>");
             out.println("<h1>Lista de Editoriales Y sus datos:</h1>");
             
-            // contenido de la lista 
-            out.println("<div id='listaUsr'>" + editoriales + "</div>");
+            // Tabla con las Editoriales
+            out.println("<div id='listaUsr'>");
+            out.println("<table class=\"table\">\n"
+                    + "  <thead class=\"thead-light\">\n"
+                    + "    <tr>\n"
+                    + "      <th scope=\"col\">Id</th>\n"
+                    + "      <th scope=\"col\">Nombre</th>\n"
+                    + "    </tr>\n"
+                    + "  </thead>\n"
+                    + "  <tbody>");
+            out.println(tabla);
+            out.println("</tbody></table>");
+            out.println("</div>");
             
             //formulario para eliminar
             out.println("<h1>Eliminar Editorial:</h1>");
@@ -145,7 +174,6 @@ public class verEditorial extends HttpServlet {
         }
 
         emf.close();
-
         em.close();
     }
 

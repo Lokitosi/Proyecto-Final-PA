@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import Entidad.Libro;
 import controladores.LibroJpaController;
 import controladores.UsuarioJpaController;
 import java.io.IOException;
@@ -29,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 public class verLibros extends HttpServlet {
 
     private EntityManager em;
+    private Libro c;
     @Resource
     private javax.transaction.UserTransaction utx;
 
@@ -44,18 +46,28 @@ public class verLibros extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        
+        //Conexion:
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliotecaPU");
         em = emf.createEntityManager();
-
-        String libros = "";
         LibroJpaController lbr = new LibroJpaController(utx, emf);
         List lLibro = lbr.findLibroEntities();
+        
+        //tabla
+        String libros,tabla = "";
         Iterator iter = lLibro.iterator();
         while (iter.hasNext()) {
-            libros += (iter.next());
+            libros = (iter.next().toString());
+            c = lbr.findLibro(Integer.parseInt(libros));
+            tabla +=    "    <tr>\n"
+                    + "      <td>" + c.getId() + "</td>\n"
+                    + "      <td>" + c.getLibTitulo() + "</td>\n"
+                    + "      <td>" + c.getLibPrecio() + "</td>\n"
+                    + "      <td>" + c.getLibGenero() + "</td>\n"
+                    + "    </tr>\n";
         }
-
+        
+        //Peticion
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -69,7 +81,7 @@ public class verLibros extends HttpServlet {
                     + "  <link href=\"https://fonts.googleapis.com/css2?family=Anton&display=swap\" rel=\"stylesheet\" type=\"text/css\">");
             out.println("</head>");
             out.println("<body>");
-            out.println("  <header>\n"
+            out.println("<header>\n"
                     + "    <nav id=\"header-nav\" class=\"navbar navbar-default\">\n"
                     + "      <div class=\"container\">\n"
                     + "        <div class=\"navbar-header\">\n"
@@ -82,24 +94,47 @@ public class verLibros extends HttpServlet {
                     + "              <h1>BiblioBogota</h1>\n"
                     + "            </a>\n"
                     + "            <p>\n"
-                    + "              <span class=\"glyphicon glyphicon-book\"></span>\n"
+                    + "              <span class=\"glyphicon glyphicon-user\"></span>\n"
                     + "              <span>Red de Bibliotecas publicas</span>\n"
                     + "            </p>\n"
                     + "          </div>\n"
                     + "        </div>\n"
+                    + "          <div id=\"collapsable-nav\" class=\"collapsable navbar-collapse\">\n"
+                    + "            <ul id=\"nav-list\" class=\"nav navbar-nav navbar-right\">\n"
+                    + "              <li>\n"
+                    + "                <a href=\"index.html\">\n"
+                    + "                  <span class=\"glyphicon glyphicon-remove\"></span><br class=\"hidden-xs\">\n"
+                    + "                  Salir\n"
+                    + "                </a>\n"
+                    + "              </ul>\n"
+                    + "          </div>\n"
+                    + "        </div>       \n"
                     + "      </div><!-- .container -->\n"
                     + "    </nav><!-- #header-nav -->\n"
                     + "  </header>");
             out.println("<h1>Lista de Libros Y sus datos:</h1>");
-
-            // contenido de la lista 
-            out.println("<div id='listaUsr'>" + libros + "</div>");
-
-            //formulario para eliminar
+            
+            // Tabla con los Libros
+            out.println("<div id='listaUsr'>");
+            out.println("<table class=\"table\">\n"
+                    + "  <thead class=\"thead-light\">\n"
+                    + "    <tr>\n"
+                    + "      <th scope=\"col\">Id</th>\n"
+                    + "      <th scope=\"col\">Titulo</th>\n"
+                    + "      <th scope=\"col\">Precio</th>\n"
+                    + "      <th scope=\"col\">Genero</th>\n"
+                    + "    </tr>\n"
+                    + "  </thead>\n"
+                    + "  <tbody>");
+            out.println(tabla);
+            out.println("</tbody></table>");
+            out.println("</div>");
+            
+             //formulario para eliminar
             out.println("<h1>Para eliminar ingrese el Id del libro:</h1>");
             out.println("<div id=\"del\">");
             out.println("<form action=\"deleteLib\" method=\"POST\">\n"
-                    + "                Nombre o nick:\n"
+                    + "                Id del libro:\n"
                     + "                <input type=\"number\" name=\"id\">"
                     + "                 <input type=\"submit\">");
             out.println("</form>");
@@ -113,7 +148,7 @@ public class verLibros extends HttpServlet {
                     + "                <input type=\"number\" name=\"id\">"
                     + "                Nombre:\n"
                     + "                <input type=\"text\" name=\"titulo\">"
-                    +"                  Genero:\n"
+                    + "                  Genero:\n"
                     + "                <input type=\"text\" name=\"genero\">"
                     + "                 Precio:\n"
                     + "                <input type=\"number\" name=\"precio\">"
@@ -160,7 +195,6 @@ public class verLibros extends HttpServlet {
         }
 
         emf.close();
-
         em.close();
     }
 

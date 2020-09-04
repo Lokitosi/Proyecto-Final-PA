@@ -17,7 +17,7 @@ De acuerdo con lo planteado en clase, el tema para el desarrollo del proyecto fi
 - [x] Desplegar la aplicación para presentar y ubicar el código en un repositorio abierto
 
 ## Screenshot pantalla principal administrativa:
-<img src="biblioteca2/ss1.jpg" alt="SS1"/>
+<img src="/Biblioteca2/ss1.jpg" alt="SS1"/>
 
 ***Lokitosi10-2020***</br>
 <img src="https://pbs.twimg.com/profile_images/1301791062340431873/QTc959wG_400x400.jpg" alt="logo"/>

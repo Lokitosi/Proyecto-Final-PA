@@ -49,21 +49,21 @@ public class verLibros extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         //Conexion:
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliotecaPU");
         em = emf.createEntityManager();
         LibroJpaController lbr = new LibroJpaController(utx, emf);
         List lLibro = lbr.findLibroEntities();
-        HttpSession misession= (HttpSession) request.getSession();
-        usr= (Usuario) misession.getAttribute("usuario");
+        HttpSession misession = (HttpSession) request.getSession();
+        usr = (Usuario) misession.getAttribute("usuario");
         //tabla
-        String libros,tabla = "";
+        String libros, tabla = "";
         Iterator iter = lLibro.iterator();
         while (iter.hasNext()) {
             libros = (iter.next().toString());
             c = lbr.findLibro(Integer.parseInt(libros));
-            tabla +=    "    <tr>\n"
+            tabla += "    <tr>\n"
                     + "      <td>" + c.getId() + "</td>\n"
                     + "      <td>" + c.getLibTitulo() + "</td>\n"
                     + "      <td>" + c.getLibPrecio() + "</td>\n"
@@ -73,9 +73,9 @@ public class verLibros extends HttpServlet {
 
         //condicionales usuario
         String pagina;
-        if(usr.getRol()==1){
+        if (usr.getRol() == 1) {
             pagina = "./bootstrap/adminPage.html";
-        }else{
+        } else {
             pagina = "./bootstrap/userPage.html";
         }
         //Peticion
@@ -85,8 +85,8 @@ public class verLibros extends HttpServlet {
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Libros</title>");
-            out.println("<link rel=\"stylesheet\" href=\"bootstrap/css/bootstrap.min.css\">\n"
-                    + "  <link rel=\"stylesheet\" href=\"bootstrap/css/styles.css\">\n"
+            out.println("<link rel=\"stylesheet\" href=\"./bootstrap/css/bootstrap.min.css\">\n"
+                    + "  <link rel=\"stylesheet\" href=\"./bootstrap/css/styles.css\">\n"
                     + "  <link href=\"https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700&display=swap\"\n"
                     + "    rel=\"stylesheet\">\n"
                     + "  <link href=\"https://fonts.googleapis.com/css2?family=Anton&display=swap\" rel=\"stylesheet\" type=\"text/css\">");
@@ -96,12 +96,12 @@ public class verLibros extends HttpServlet {
                     + "    <nav id=\"header-nav\" class=\"navbar navbar-default\">\n"
                     + "      <div class=\"container\">\n"
                     + "        <div class=\"navbar-header\">\n"
-                    + "          <a href=\""+pagina+"\" class=\"pull-left visible-md visible-lg\">\n"
+                    + "          <a href=\"" + pagina + "\" class=\"pull-left visible-md visible-lg\">\n"
                     + "            <div id=\"logo-img\"></div>\n"
                     + "          </a>\n"
                     + "\n"
                     + "          <div class=\"navbar-brand\">\n"
-                    + "            <a href=\""+pagina+"\">\n"
+                    + "            <a href=\"" + pagina + "\">\n"
                     + "              <h1>BiblioBogota</h1>\n"
                     + "            </a>\n"
                     + "            <p>\n"
@@ -124,7 +124,7 @@ public class verLibros extends HttpServlet {
                     + "    </nav><!-- #header-nav -->\n"
                     + "  </header>");
             out.println("<h1>Lista de Libros Y sus datos:</h1>");
-            
+
             // Tabla con los Libros
             out.println("<div id='listaUsr'>");
             out.println("<table class=\"table\">\n"
@@ -140,41 +140,44 @@ public class verLibros extends HttpServlet {
             out.println(tabla);
             out.println("</tbody></table>");
             out.println("</div>");
-            
-            if(usr.getRol()==1){
+
+            if (usr.getRol() == 1) {
                 //formulario para eliminar
-            out.println("<h1>Para eliminar ingrese el Id del libro:</h1>");
-            out.println("<div id=\"del\">");
-            out.println("<form action=\"deleteLib\" method=\"POST\">\n"
-                    + "                Id del libro:\n"
-                    + "                <input type=\"number\" name=\"id\">"
-                    + "                 <input type=\"submit\">");
-            out.println("</form>");
-            out.println("</div>");
+                out.println("<div id=\"elim\">");
+                out.println("<h1>Para eliminar ingrese el Id del libro:</h1>");
+                out.println("<div id=\"del\">");
+                out.println("<form action=\"deleteLib\" method=\"POST\">\n"
+                        + "                Id del libro:\n"
+                        + "                <input type=\"number\" name=\"id\">"
+                        + "                 <input type=\"submit\">");
+                out.println("</form>");
+                out.println("</div>");
+                out.println("</div");
 
-            //formulario para Agregar
-            out.println("<h1>Nuevo libro:</h1>");
-            out.println("<div id=\"del\">");
-            out.println("<form action=\"newLib\" method=\"POST\">\n"
-                    + "                 Id:\n"
-                    + "                <input type=\"number\" name=\"id\">"
-                    + "                Nombre:\n"
-                    + "                <input type=\"text\" name=\"titulo\">"
-                    + "                  Genero:\n"
-                    + "                <input type=\"text\" name=\"genero\">"
-                    + "                 Precio:\n"
-                    + "                <input type=\"number\" name=\"precio\">"
-                    + "                  Stock:\n"
-                    + "                  <select name=\"stock\" id=\"stock\">\n"
-                    + "                     <option value=\"si\">Si</option>\n"
-                    + "                      <option value=\"no\">No</option>\n"
-                    + "                    </select>"
-                    + "                 <input type=\"submit\">");
-            out.println("</form>");
-            out.println("</div >");
-
+                //formulario para Agregar
+                out.println("<div id=\"add\">");
+                out.println("<h1>Nuevo libro:</h1>");
+                out.println("<div id=\"del\">");
+                out.println("<form action=\"newLib\" method=\"POST\">\n"
+                        + "                 Id:\n"
+                        + "                <input type=\"number\" name=\"id\">"
+                        + "                Nombre:\n"
+                        + "                <input type=\"text\" name=\"titulo\">"
+                        + "                  Genero:\n"
+                        + "                <input type=\"text\" name=\"genero\">"
+                        + "                 Precio:\n"
+                        + "                <input type=\"number\" name=\"precio\">"
+                        + "                  Stock:\n"
+                        + "                  <select name=\"stock\" id=\"stock\">\n"
+                        + "                     <option value=\"si\">Si</option>\n"
+                        + "                      <option value=\"no\">No</option>\n"
+                        + "                    </select>"
+                        + "                 <input type=\"submit\">");
+                out.println("</form>");
+                out.println("</div>");
+                out.println("</div>");
             }
-             
+
             // Footer
             out.println("<footer class=\"panel-footer\">\n"
                     + "    <div class=\"container\">\n"
@@ -205,6 +208,9 @@ public class verLibros extends HttpServlet {
                     + "    </div>\n"
                     + "  </footer>");
             out.println("</body>");
+            out.println("<script src=\"./bootstrap/js/jquery-2.1.4.min.js\"></script>\n"
+                    + "  <script src=\"./bootstrap/js/bootstrap.min.js\"></script>\n"
+                    + "  <script src=\"./bootstrap/js/script.js\"></script>");
             out.println("</html>");
         }
 

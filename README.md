@@ -16,4 +16,4 @@ De acuerdo con lo planteado en clase, el tema para el desarrollo del proyecto fi
 
 - [x] Desplegar la aplicación para presentar y ubicar el código en un repositorio abierto
 
-<img src="https://www.google.com.co/url?sa=i&url=https%3A%2F%2Ftwitter.com%2FBocchiYArroz&psig=AOvVaw0TK6m7qE1u0Nhx69jFXzne&ust=1599334869566000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPDtqvCg0OsCFQAAAAAdAAAAABAD" alt="My cool logo"/>
+<img src="https://pbs.twimg.com/profile_images/1301791062340431873/QTc959wG_400x400.jpg" alt="My cool logo"/>

@@ -19,5 +19,6 @@ De acuerdo con lo planteado en clase, el tema para el desarrollo del proyecto fi
 ## Screenshot pantalla principal administrativa:
 <img src="/Biblioteca2/ss1.jpg" alt="SS1"/>
 
-***Lokitosi10-2020***</br>
+***©Lokitosi10-2020***</br>
 <img src="https://pbs.twimg.com/profile_images/1301791062340431873/QTc959wG_400x400.jpg" alt="logo"/>
+
